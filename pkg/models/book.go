@@ -9,8 +9,8 @@ var db *gorm.DB
 
 type Book struct {
 	gorm.Model
-	Name string `gorm:""json:"name"`
-	Author string `gorm:"author"`
+	Name        string `gorm:""json:"name"`
+	Author      string `gorm:"author"`
 	Publication string `gorm:"publication"`
 }
 
@@ -20,3 +20,8 @@ func init() {
 	db.AutoMigrate(&Book{})
 }
 
+func (b *Book) CreateBook() *Book {
+	db.NewRecord(b)
+	db.Create(&b)
+	return b
+}
